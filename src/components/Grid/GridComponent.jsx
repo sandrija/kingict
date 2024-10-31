@@ -24,6 +24,18 @@ const GridComponent = ({
     const [totalNumberOfPages, setTotalNumberOfPages] = useState(0);
     const [gridData, setGridData] = useState([]);
 
+    const [filtersState, setFiltersState] = useState(options.filterOptions.reduce(
+        (previousObject, filter) => ({
+            ...previousObject,
+            [filter.id]: {
+                value: '',
+                clause: filter.clause,
+                field: filter.field,
+            }
+        }),
+        {}));
+    console.log('filtersState: ', filtersState);
+
     useEffect(() => {
         if (!loading) {
             const { displayData, filterCount, totalNumberOfPages } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', null, totalResults);
@@ -54,6 +66,11 @@ const GridComponent = ({
         setIsLoading(false);
     }
 
+    const onApplyFilter = (filterId, newFilterValue) => {
+        console.log('onApplyFilter => filterId: ', filterId);
+        console.log('onApplyFilter => newFilterValue: ', newFilterValue);
+    }
+
 
     return (
         <Box
@@ -70,6 +87,7 @@ const GridComponent = ({
                 options={options}
                 toggleSort={toggleSort}
                 sortValue={sortValue}
+                onApplyFilter={onApplyFilter}
             />
             <Box>
                 <Grid

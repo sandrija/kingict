@@ -4,7 +4,7 @@ import Layout from '../Layout/Layout';
 import { useProducts } from '../hooks/useProducts';
 // import ProductCard from "./ProductCard";
 import GridComponent from '../Grid/GridComponent';
-import { productGridPropNames, productsGridSortOptions } from '../../constants/products';
+import { productGridPropNames, productsGridSortOptions, productsGridFilterOptions } from '../../constants/products';
 
 function Products() {
    const { allProducts, totalResults, loading } = useProducts();
@@ -17,7 +17,9 @@ function Products() {
                 loading={loading}
                 options={{
                     enableSorting: true,
-                    sortOptions: productsGridSortOptions
+                    sortOptions: productsGridSortOptions,
+                    enableFiltering: true,
+                    filterOptions: productsGridFilterOptions([]),
                 }}
             />
         </Layout>
