@@ -30,9 +30,9 @@ export function getDisplayData(cardProps, currentData, searchText, currentPagina
 
 
     const newFilterCount = (totalResults !== filterCount) ? filterCount : totalResults;
-    const totalPages = getTotalNumberOfPages(newFilterCount, itemsPerPage);
+    const totalNumberOfPages = getTotalNumberOfPages(newFilterCount, itemsPerPage);
 
-    displayData = sliceDisplayData(page, itemsPerPage, newFilterCount, totalPages, displayData);
+    displayData = sliceDisplayData(page, itemsPerPage, newFilterCount, totalNumberOfPages, displayData);
 
-    return { displayData, filterCount, page };
+    return { displayData, filterCount, page, totalNumberOfPages };
 }

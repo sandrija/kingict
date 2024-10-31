@@ -18,25 +18,25 @@ const GridComponent = ({
     const [isLoading, setIsLoading] = useState(loading);
     const [page, setPage] = useState(0);
     const [filterCount, setFilterCount] = useState(0);
+    const [totalNumberOfPages, setTotalNumberOfPages] = useState(0);
     const [gridData, setGridData] = useState([]);
-
-    // const displayData = useMemo(() => getDisplayData(), [page]);
-    // const displayData = data;
 
     useEffect(() => {
         if (!loading) {
-            const { displayData } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', null, totalResults);
-            console.log('displayData: ', displayData);
+            const { displayData, filterCount, totalNumberOfPages } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', null, totalResults);
             setIsLoading(false);
             setGridData(displayData);
+            setFilterCount(filterCount);
+            setTotalNumberOfPages(totalNumberOfPages);
         }
     } , [loading]);
 
     const changePage = (newPage) => {
         setIsLoading(true);
         const { displayData } = getDisplayData(cardItemProps, data, '', newPage, itemsPerPage, '', null, totalResults);
-        console.log('displayData changePage: ', displayData);
         setGridData(displayData);
+        setFilterCount(filterCount);
+        setTotalNumberOfPages(totalNumberOfPages);
         setPage(newPage);
         setIsLoading(false);
     };
@@ -72,6 +72,7 @@ const GridComponent = ({
                             filterCount={filterCount}
                             itemsPerPage={itemsPerPage}
                             changePage={changePage}
+                            totalNumberOfPages={totalNumberOfPages}
                             loading={isLoading}
                         />
                     )

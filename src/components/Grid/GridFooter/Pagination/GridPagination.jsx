@@ -13,16 +13,10 @@ const paginationButtonSxStyle = {
 
 const GridPagination = ({
     page,
-    totalResults,
-    filterCount,
     changePage,
+    totalNumberOfPages,
 }) => {
-    //const totalNumberOfPages = getTotalNumberOfPages(newTotalResults, rowsPerPage);
-    const totalNumberOfPages = 10;
-    // const isLastAndNextPageDisabled = areNextAndLastPageDisabled(page, rowsPerPage, rowsCount, isDataGridUsingCappedLimit, newTotalResults, totalNumberOfPages);
-    const isLastAndNextPageDisabled = false;
-
-
+    const isLastAndNextPageDisabled = page === totalNumberOfPages;
 
     function handleChangePage(paginationButton) {
         switch (paginationButton) {

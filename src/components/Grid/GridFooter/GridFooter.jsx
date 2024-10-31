@@ -10,6 +10,7 @@ const GridFooter = ({
     filterCount,
     itemsPerPage,
     changePage,
+    totalNumberOfPages,
     loading
 }) => (
     <Box
@@ -38,9 +39,8 @@ const GridFooter = ({
                 <GridInfo />
                 <GridPagination
                     page={page}
-                    totalResults={totalResults}
-                    filterCount={filterCount}
                     changePage={changePage}
+                    totalNumberOfPages={totalNumberOfPages}
                 />
             </Box>
         </Box>
