@@ -29,7 +29,7 @@ const GridInfo = ({
     }
 
     return (
-        <Typography>
+        <Typography variant="body1">
             {getInfoText()}
         </Typography>
     );

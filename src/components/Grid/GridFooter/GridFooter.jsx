@@ -14,40 +14,29 @@ const GridFooter = ({
 }) => (
     <Box
         sx={{
-            color: 'inherit',
-            outline: 'none',
-            verticalAlign: 'middle',
-            display: 'block',
+            marginTop: '25px',
         }}
     >
         <Box
             sx={{
-                verticalAlign: 'inherit',
-                padding: '0px 15px 0px 15px',
-                width: '100%',
-                display: 'block',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'end',
             }}
         >
-            <Box
-                sx={{
-                    display: 'flex',
-                    position: 'relative',
-                    alignItems: 'center',
-                }}
-            >
-                <GridInfo
-                    page={page}
-                    itemsPerPage={itemsPerPage}
-                    totalResults={totalResults}
-                    filterCount={filterCount}
-                    itemsCount={itemsCount}
-                />
-                <GridPagination
-                    page={page}
-                    changePage={changePage}
-                    totalNumberOfPages={totalNumberOfPages}
-                />
-            </Box>
+            <GridInfo
+                page={page}
+                itemsPerPage={itemsPerPage}
+                totalResults={totalResults}
+                filterCount={filterCount}
+                itemsCount={itemsCount}
+            />
+            <GridPagination
+                page={page}
+                changePage={changePage}
+                totalNumberOfPages={totalNumberOfPages}
+            />
         </Box>
     </Box>
 );

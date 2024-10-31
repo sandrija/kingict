@@ -43,7 +43,6 @@ const GridPagination = ({
                 display: 'block',
                 flexShrink: '0',
                 marginLeft: '20px',
-                marginRight: '80px',
             }}
         >
             <IconButton

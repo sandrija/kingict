@@ -31,13 +31,14 @@ export default function GridCard({ cardItem, cardItemProps }) {
                     >
                         {cardItem[cardItemProps.title]}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2" sx={{ color: 'text.secondary', minHeight: '61px' }}>
                         {
                             cardItem[cardItemProps.description].substring(0, 100)
                         }
                     </Typography>
                 </CardContent>
-                <CardActions>
+                <CardActions sx={{ justifyContent: 'space-between' }}>
+                    <Button size="small">Detalji</Button>
                     <Button size="small">Dodaj u kosaricu</Button>
                 </CardActions>
             </Card>

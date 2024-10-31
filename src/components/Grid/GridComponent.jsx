@@ -43,40 +43,46 @@ const GridComponent = ({
 
 
     return (
-        <Box>
+        <Box
+            sx={{
+                maxWidth: '1360px',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                margin: '50px auto',
+            }}
+        >
             { isLoading && (<MaterialLoader />) }
-            <Grid
-                container
-                spacing={{ xs: 2, md: 3 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}
-                sx={{
-                    marginTop: '24px!important',
-                    justifyContent: 'center',
-                }}
-            >
-                {
-                    gridData.map(item => (
-                        <GridCard
-                            key={item[cardId]}
-                            cardItem={item}
-                            cardItemProps={cardItemProps}
-                        />
-                    ))
-                }
-                {
-                    !isLoading && (
-                        <GridFooter
-                            page={page}
-                            itemsCount={gridData.length}
-                            totalResults={totalResults}
-                            filterCount={filterCount}
-                            itemsPerPage={itemsPerPage}
-                            changePage={changePage}
-                            totalNumberOfPages={totalNumberOfPages}
-                        />
-                    )
-                }
-            </Grid>
+            <Box>
+                <Grid
+                    container
+                    spacing={{ xs: 2, md: 3 }}
+                    columns={{ xs: 4, sm: 8, md: 12 }}
+                >
+                    {
+                        gridData.map(item => (
+                            <GridCard
+                                key={item[cardId]}
+                                cardItem={item}
+                                cardItemProps={cardItemProps}
+                            />
+                        ))
+                    }
+                </Grid>
+            </Box>
+            {
+                !isLoading && (
+                    <GridFooter
+                        page={page}
+                        itemsCount={gridData.length}
+                        totalResults={totalResults}
+                        filterCount={filterCount}
+                        itemsPerPage={itemsPerPage}
+                        changePage={changePage}
+                        totalNumberOfPages={totalNumberOfPages}
+                    />
+                )
+            }
         </Box>
     );
 }
