@@ -4,6 +4,25 @@ export function getTotalNumberOfPages(totalResults, itemsPerPage) {
         Math.floor(totalResults / itemsPerPage) - 1;
 }
 
+function getStartParamForFirstPage(rowCount) {
+    return rowCount > 0 ?
+        1 : 0;
+}
+
+export function gridInfoParams(page, rowsPerPage, rowCount) {
+    const isFirstPage = page === 0;
+
+    const start = isFirstPage ?
+        getStartParamForFirstPage(rowCount) :
+        page * rowsPerPage + 1;
+
+    const end = isFirstPage ?
+        rowCount :
+        (page * rowsPerPage) + rowCount;
+
+    return { start, end };
+}
+
 export function sliceDisplayData(page, itemsPerPage, newFilterCount, totalPages, gridData) {
     const sliceStart = itemsPerPage * page;
     let sliceEnd;

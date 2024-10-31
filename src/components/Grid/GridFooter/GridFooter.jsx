@@ -11,7 +11,6 @@ const GridFooter = ({
     itemsPerPage,
     changePage,
     totalNumberOfPages,
-    loading
 }) => (
     <Box
         sx={{
@@ -36,7 +35,13 @@ const GridFooter = ({
                     alignItems: 'center',
                 }}
             >
-                <GridInfo />
+                <GridInfo
+                    page={page}
+                    itemsPerPage={itemsPerPage}
+                    totalResults={totalResults}
+                    filterCount={filterCount}
+                    itemsCount={itemsCount}
+                />
                 <GridPagination
                     page={page}
                     changePage={changePage}

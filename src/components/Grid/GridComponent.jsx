@@ -67,13 +67,12 @@ const GridComponent = ({
                     !isLoading && (
                         <GridFooter
                             page={page}
-                            itemsCount={totalResults}
+                            itemsCount={gridData.length}
                             totalResults={totalResults}
                             filterCount={filterCount}
                             itemsPerPage={itemsPerPage}
                             changePage={changePage}
                             totalNumberOfPages={totalNumberOfPages}
-                            loading={isLoading}
                         />
                     )
                 }
