@@ -31,9 +31,14 @@ export default function GridCard({ cardItem, cardItemProps }) {
                     >
                         {cardItem[cardItemProps.title]}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', minHeight: '61px' }}>
+                    <Typography variant="body2" sx={{ minHeight: '61px' }}>
                         {
                             cardItem[cardItemProps.description].substring(0, 100)
+                        }
+                    </Typography>
+                    <Typography variant="h6" color="primary" sx={{ textAlign: 'right' }}>
+                        {
+                            `${cardItem[cardItemProps.price]} €`
                         }
                     </Typography>
                 </CardContent>

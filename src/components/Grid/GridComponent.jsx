@@ -6,6 +6,7 @@ import { config } from '../../constants/config';
 import GridCard from './GridCard/GridCard';
 import MaterialLoader from '../Layout/MaterialLoader';
 import GridFooter from './GridFooter/GridFooter';
+import Filters from "./Filters/Filters";
 
 const GridComponent = ({
     loading,
@@ -14,10 +15,12 @@ const GridComponent = ({
     totalResults,
     itemsPerPage = config.defaultPaginationLimit,
     cardId = 'id',
+    options,
 }) => {
     const [isLoading, setIsLoading] = useState(loading);
     const [page, setPage] = useState(0);
     const [filterCount, setFilterCount] = useState(0);
+    const [sortValue, setSortValue] = useState('');
     const [totalNumberOfPages, setTotalNumberOfPages] = useState(0);
     const [gridData, setGridData] = useState([]);
 
@@ -33,13 +36,22 @@ const GridComponent = ({
 
     const changePage = (newPage) => {
         setIsLoading(true);
-        const { displayData } = getDisplayData(cardItemProps, data, '', newPage, itemsPerPage, '', null, totalResults);
+        const { displayData } = getDisplayData(cardItemProps, data, '', newPage, itemsPerPage, '', sortValue, totalResults);
         setGridData(displayData);
         setFilterCount(filterCount);
         setTotalNumberOfPages(totalNumberOfPages);
         setPage(newPage);
         setIsLoading(false);
     };
+
+    const toggleSort = (newSortValue) => {
+        setIsLoading(true);
+        const { displayData } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', newSortValue, totalResults);
+        setGridData(displayData);
+        setFilterCount(filterCount);
+        setSortValue(newSortValue);
+        setIsLoading(false);
+    }
 
 
     return (
@@ -53,6 +65,11 @@ const GridComponent = ({
             }}
         >
             { isLoading && (<MaterialLoader />) }
+            <Filters
+                options={options}
+                toggleSort={toggleSort}
+                sortValue={sortValue}
+            />
             <Box>
                 <Grid
                     container
