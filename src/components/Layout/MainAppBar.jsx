@@ -11,7 +11,6 @@ import Login from '../Login/Login';
 function MainAppBar() {
     const { currentUser } = useApp();
     const [showLogin, setShowLogin] = useState(false);
-    console.log('currentUser: ', currentUser);
     return (
         <AppBar position="fixed">
             <Toolbar

@@ -1,11 +1,11 @@
-export async function getDataWithSequentialCalls(fetchAction, entityName, fetchArguments, total = null) {
+export async function getDataWithSequentialCalls(fetchAction, entityName, fetchArguments, totalResults = 0) {
     const limit = fetchArguments.limit;
     const skip = fetchArguments.skip;
 
-    if (total !== null && total <= fetchArguments.skip)
+    if (totalResults != 0 && totalResults <= fetchArguments.skip)
         return {
             [entityName]: [],
-            total,
+            total: totalResults,
             skip,
             limit,
         };
@@ -19,7 +19,7 @@ export async function getDataWithSequentialCalls(fetchAction, entityName, fetchA
     const entityResponse = (await fetchAction(entityQuery)).data;
     const entityArray = entityResponse[entityName];
 
-    const newTotalResults = entityResponse.total ?? total;
+    const newTotalResults = entityResponse.total ?? totalResults;
 
     const nextEntity = await getDataWithSequentialCalls(fetchAction, entityName, {
         ...entityQuery,
@@ -27,7 +27,7 @@ export async function getDataWithSequentialCalls(fetchAction, entityName, fetchA
     }, newTotalResults);
     return {
         [entityName]: entityArray.concat(nextEntity[entityName]),
-        total,
+        total: newTotalResults,
         skip,
         limit,
     };

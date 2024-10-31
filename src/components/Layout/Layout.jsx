@@ -8,7 +8,6 @@ const Main = styled('main', {})(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
-    padding: theme.spacing(3),
     paddingBottom: 0,
 }));
 
@@ -21,7 +20,9 @@ const Layout = ({ children }) => (
     >
         <Main>
             <MainAppBar />
-            { children }
+            <Box sx={{ marginTop: '64px' }}>
+                { children }
+            </Box>
         </Main>
     </Box>
 );

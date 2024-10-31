@@ -24,9 +24,7 @@ export function AppProvider({ children }) {
                 const token = getTokenFromLocalStorage();
                 if (token) {
                     const loggedInUser = (await AuthApi.getMe()).data;
-                    console.log('useLayoutEffect => loggedInUser: ', loggedInUser);
                     const myCart = (await CartApi.getMyCart(loggedInUser.id)).data;
-                    console.log('myCart: ', myCart);
                     setCartState(myCart);
                     setCurrentUser(loggedInUser);
                 }
@@ -44,7 +42,6 @@ export function AppProvider({ children }) {
                 saveRefreshTokenToLocalStorage(loggedInUser.refreshToken);
                 setCurrentUser(loggedInUser);
             }
-            console.log('loggedInUser: ', loggedInUser);
         },
         []
     );

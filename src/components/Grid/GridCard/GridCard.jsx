@@ -7,19 +7,19 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-export default function ProductCard({ product }) {
-    console.log('productItem: ', product);
+export default function GridCard({ cardItem, cardItemProps }) {
     const onAddToCart = () => {
 
     };
+
     return (
         // <Grid item xs={2} sm={4} md={4}>
         <Grid item sx={{ maxWidth: 345 }}>
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                     sx={{ height: 140 }}
-                    image={product.thumbnail}
-                    title={product.title}
+                    image={cardItem[cardItemProps.thumbnail]}
+                    title={cardItem[cardItemProps.title]}
                 />
                 <CardContent>
                     <Typography
@@ -29,11 +29,11 @@ export default function ProductCard({ product }) {
                             height: '65px',
                         }}
                     >
-                        {product.title}
+                        {cardItem[cardItemProps.title]}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                         {
-                            product.description.substring(0, 100)
+                            cardItem[cardItemProps.description].substring(0, 100)
                         }
                     </Typography>
                 </CardContent>

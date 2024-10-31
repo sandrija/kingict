@@ -1,13 +1,13 @@
 import React from 'react';
 import { AppProvider } from './AppProvider';
 import { ThemeProvider } from '../../Theme/ThemeProvider';
-import ProductsGrid from '../Products/ProductsGrid';
+import Products from '../Products/Products';
 
 export default function ProvidedApp() {
     return (
         <ThemeProvider>
             <AppProvider>
-                <ProductsGrid />
+                <Products />
             </AppProvider>
         </ThemeProvider>
     );

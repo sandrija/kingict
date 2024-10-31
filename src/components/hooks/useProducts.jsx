@@ -11,7 +11,7 @@ import ProductsApi from "../../ApiClient/ProductsApi";
 export const useProducts = () => {
     const [loading, setLoading] = useState(true);
     const [allProducts, setAllProducts] = useState([]);
-    const [totalNumberOfProducts, setTotalNumberOfProducts] = useState([]);
+    const [totalResults, setTotalResults] = useState(0);
     const [filteredProducts, setFilteredProducts] = useState([]);
 
     const productsQuery = {
@@ -26,14 +26,14 @@ export const useProducts = () => {
                 const {
                     total,
                     products
-                } = await getDataWithSequentialCalls(ProductsApi.getProducts, "products", productsQuery,null);
-                console.log('total: ', total);
-                console.log('products: ', products);
-                setTotalNumberOfProducts(total);
+                } = await getDataWithSequentialCalls(ProductsApi.getProducts, "products", productsQuery, totalResults);
+                setTotalResults(total);
                 setAllProducts(products);
                 setFilteredProducts(products);
             } catch (e) {
                 console.log('error fetching products: ', e);
+            } finally {
+                setLoading(false);
             }
         })();
     }, []);
@@ -42,5 +42,6 @@ export const useProducts = () => {
         loading,
         allProducts,
         filteredProducts,
+        totalResults,
     };
 };
