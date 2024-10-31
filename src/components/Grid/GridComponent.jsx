@@ -46,10 +46,11 @@ const GridComponent = ({
 
     const toggleSort = (newSortValue) => {
         setIsLoading(true);
-        const { displayData } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', newSortValue, totalResults);
+        const { displayData } = getDisplayData(cardItemProps, data, '', 0, itemsPerPage, '', newSortValue, totalResults);
         setGridData(displayData);
         setFilterCount(filterCount);
         setSortValue(newSortValue);
+        setPage(0);
         setIsLoading(false);
     }
 
