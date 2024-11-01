@@ -34,6 +34,7 @@ export const productsGridFilterOptions = (categoryList) => [
     {
         id: 'priceRange',
         componentType: 'dropdown',
+        filterType: 'range',
         clause: 'between',
         field: 'price',
         label: 'Filtriraj po cijeni',
@@ -65,6 +66,7 @@ export const productsGridFilterOptions = (categoryList) => [
     // {
     //     id: 'categorySelector',
     //     componentType: 'dropdown',
+    //     filterType: 'select',
     //     label: 'Filtriraj po kategoriji',
     //     clause: 'eq', // equals
     //     field: 'category',
@@ -76,6 +78,7 @@ export const productsGridFilterOptions = (categoryList) => [
         id: 'titleSearch',
         label: 'Filtriraj po nazivu proizvoda',
         componentType: 'input',
+        filterType: 'textSearch',
         clause: 'includes',
         field: 'title',
     },

@@ -52,7 +52,36 @@ export function sliceDisplayData(page, itemsPerPage, newFilterCount, totalPages,
     return gridData.slice(sliceStart, sliceEnd);
 }
 
-export function getDisplayData(cardProps, currentData, searchText, currentPaginationPage, itemsPerPage, cardsSearch, sortValue, totalResults, resetPage = true) {
+const isSomeFilterApplied = (filtersState) => Object.keys(filtersState).length > 0 &&
+    Object.keys(filtersState)
+        .some(key => Boolean(filtersState[key].value));
+
+
+const filterRange = (data, filter) => {
+   const values = filter.value.split('-');
+   return data.filter(item => item[filter.field] >= values[0] && item[filter.field] <= values[1]);
+}
+
+export const filterData = (data, filtersState) => {
+    let filteredData = data;
+    const filtersKeys = Object.keys(filtersState);
+    filtersKeys.forEach(key => {
+        const filter = filtersState[key];
+        const filterValue = filter.value;
+        const filterType = filter.filterType;
+        if (!Boolean(filterValue))
+            return;
+        switch (filterType) {
+            case 'range':
+                filteredData = filterRange(filteredData, filter);
+            default: return;
+        }
+    });
+
+    return filteredData;
+}
+
+export function getDisplayData(cardProps, currentData, searchText, currentPaginationPage, itemsPerPage, filtersState, sortValue, totalResults, resetPage = true) {
     let page = currentPaginationPage;
     let filterCount = totalResults;
     let displayData = Array.from(currentData);
@@ -61,6 +90,12 @@ export function getDisplayData(cardProps, currentData, searchText, currentPagina
         const order = sortValue.sortDirection;
         const sortField = sortValue.field;
         displayData = sortData(displayData, sortField, order, sortValue.numeric || false);
+    }
+
+    const isFilterApplied = isSomeFilterApplied(filtersState);
+    if (isFilterApplied) {
+        displayData = filterData(displayData, filtersState);
+        filterCount = displayData.length;
     }
 
     const newFilterCount = (totalResults !== filterCount) ? filterCount : totalResults;

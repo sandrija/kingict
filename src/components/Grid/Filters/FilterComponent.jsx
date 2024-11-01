@@ -55,7 +55,7 @@ const FilterComponent = ({
     const filterComponents = useMemo(() => {
         return filterList.map(filter => (
             <Box key={filter.id}>
-                {getComponent(filter, filtersState[filter.id], onApplyFilter)}
+                {getComponent(filter, filtersState[filter.id].value, onApplyFilter)}
             </Box>
         ));
     }, [filtersState]);

@@ -24,21 +24,22 @@ const GridComponent = ({
     const [totalNumberOfPages, setTotalNumberOfPages] = useState(0);
     const [gridData, setGridData] = useState([]);
 
-    const [filtersState, setFiltersState] = useState(options.filterOptions.reduce(
+    const [filtersState, setFiltersState] = useState(options?.filterOptions?.reduce(
         (previousObject, filter) => ({
             ...previousObject,
             [filter.id]: {
                 value: '',
                 clause: filter.clause,
                 field: filter.field,
+                filterType: filter.filterType,
             }
         }),
-        {}));
+        {}) || {});
     console.log('filtersState: ', filtersState);
 
     useEffect(() => {
         if (!loading) {
-            const { displayData, filterCount, totalNumberOfPages } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, '', null, totalResults);
+            const { displayData, filterCount, totalNumberOfPages } = getDisplayData(cardItemProps, data, '', page, itemsPerPage, {}, null, totalResults);
             setIsLoading(false);
             setGridData(displayData);
             setFilterCount(filterCount);
@@ -48,7 +49,7 @@ const GridComponent = ({
 
     const changePage = (newPage) => {
         setIsLoading(true);
-        const { displayData } = getDisplayData(cardItemProps, data, '', newPage, itemsPerPage, '', sortValue, totalResults);
+        const { displayData } = getDisplayData(cardItemProps, data, '', newPage, itemsPerPage, filtersState, sortValue, totalResults);
         setGridData(displayData);
         setFilterCount(filterCount);
         setTotalNumberOfPages(totalNumberOfPages);
@@ -58,7 +59,7 @@ const GridComponent = ({
 
     const toggleSort = (newSortValue) => {
         setIsLoading(true);
-        const { displayData } = getDisplayData(cardItemProps, data, '', 0, itemsPerPage, '', newSortValue, totalResults);
+        const { displayData } = getDisplayData(cardItemProps, data, '', 0, itemsPerPage, filtersState, newSortValue, totalResults);
         setGridData(displayData);
         setFilterCount(filterCount);
         setSortValue(newSortValue);
@@ -67,6 +68,21 @@ const GridComponent = ({
     }
 
     const onApplyFilter = (filterId, newFilterValue) => {
+        setIsLoading(true);
+        const newFiltersState = {
+            ...filtersState,
+            [filterId]: {
+                ...filtersState[filterId],
+                value: newFilterValue,
+            }
+        };
+
+        const { displayData } = getDisplayData(cardItemProps, data, '', 0, itemsPerPage, newFiltersState, sortValue, totalResults);
+        setGridData(displayData);
+        setFilterCount(filterCount);
+        setFiltersState(newFiltersState);
+        setPage(0);
+        setIsLoading(false);
         console.log('onApplyFilter => filterId: ', filterId);
         console.log('onApplyFilter => newFilterValue: ', newFilterValue);
     }
@@ -88,6 +104,7 @@ const GridComponent = ({
                 toggleSort={toggleSort}
                 sortValue={sortValue}
                 onApplyFilter={onApplyFilter}
+                filtersState={filtersState}
             />
             <Box>
                 <Grid

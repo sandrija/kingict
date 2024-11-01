@@ -8,6 +8,7 @@ const Filters = ({
     toggleSort,
     sortValue,
     onApplyFilter,
+    filtersState,
 }) => {
     const isSortingEnabled = options.enableSorting && options.sortOptions.length > 0;
     const isFilteringEnabled = options.enableFiltering && options.filterOptions.length > 0;
@@ -26,7 +27,7 @@ const Filters = ({
                     <FilterComponent
                         onApplyFilter={onApplyFilter}
                         filterList={options.filterOptions}
-                        filtersState={{}}
+                        filtersState={filtersState}
                     />
                 )
             }
